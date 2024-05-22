@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:movie_db_flutter/ui/detail_movie_page.dart';
 
 import '../api/endpoint.dart';
 import '../model/movies.dart';
@@ -21,7 +22,8 @@ class MovieCard extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                // Handle movie tap
+                Navigator.pushNamed(context, DetailMoviePage.routeName,
+                    arguments: movie.id.toString());
               },
               child: Hero(
                 tag: movie.posterPath,
@@ -40,12 +42,16 @@ class MovieCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 4.0),
-          Text(
-            movie.title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontWeight: FontWeight.bold),
+          SizedBox(
+            width: 100,
+            child: Text(
+              movie.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
+
           SizedBox(height: 2.0),
           Row(
             children: [

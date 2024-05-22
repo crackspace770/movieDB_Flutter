@@ -5,53 +5,49 @@ class Trending {
   bool adult;
   String backdropPath;
   int id;
-  String? title;
-  String? originalTitle;
+  String title;
+  String originalTitle;
   String overview;
   String posterPath;
   MediaType mediaType;
-  DateTime? releaseDate;
-  bool? video;
+  DateTime releaseDate;
   double voteAverage;
-  String? name;
-  String? originalName;
-  DateTime? firstAirDate;
-  List<String>? originCountry;
+  String name;
+  String originalName;
+  DateTime firstAirDate;
+
 
   Trending({
     required this.adult,
     required this.backdropPath,
     required this.id,
-    this.title,
-    this.originalTitle,
+    required this.title,
+    required this.originalTitle,
     required this.overview,
     required this.posterPath,
     required this.mediaType,
-    this.releaseDate,
-    this.video,
+    required this.releaseDate,
     required this.voteAverage,
-    this.name,
-    this.originalName,
-    this.firstAirDate,
-    this.originCountry,
+    required this.name,
+    required this.originalName,
+    required this.firstAirDate,
+
   });
 
   factory Trending.fromJson(Map<String, dynamic> json) => Trending(
-    adult: json["adult"],
-    backdropPath: json["backdrop_path"],
-    id: json["id"],
-    title: json["title"],
-    originalTitle: json["original_title"],
-    overview: json["overview"],
-    posterPath: json["poster_path"],
+    adult: json["adult"]??"",
+    backdropPath: json["backdrop_path"]??"",
+    id: json["id"]??"",
+    title: json["title"]??"",
+    originalTitle: json["original_title"]??"",
+    overview: json["overview"]??"",
+    posterPath: json["poster_path"]??"",
     mediaType: mediaTypeValues.map[json["media_type"]]!,
-    releaseDate: json["release_date"] == null ? null : DateTime.parse(json["release_date"]),
-    video: json["video"],
+    releaseDate: json["release_date"] != null ? DateTime.parse(json["release_date"]) : DateTime.now(),
     voteAverage: (json["vote_average"] as num?)?.toDouble() ?? 0.0, // Handle null value
-    name: json["name"],
-    originalName: json["original_name"],
-    firstAirDate: json["first_air_date"] == null ? null : DateTime.parse(json["first_air_date"]),
-    originCountry: json["origin_country"] == null ? [] : List<String>.from(json["origin_country"]!.map((x) => x)),
+    name: json["name"]??"",
+    originalName: json["original_name"]??"",
+    firstAirDate: json["first_air_date"] == null ? DateTime.parse(json["first_air_date"]):DateTime.now(),
   );
 
   Map<String, dynamic> toJson() => {
@@ -63,13 +59,12 @@ class Trending {
     "overview": overview,
     "poster_path": posterPath,
     "media_type": mediaTypeValues.reverse[mediaType],
-    "release_date": releaseDate?.toIso8601String(),
-    "video": video,
+    "release_date": releaseDate,
     "vote_average": voteAverage,
     "name": name,
     "original_name": originalName,
-    "first_air_date": firstAirDate?.toIso8601String(),
-    "origin_country": originCountry == null ? [] : List<dynamic>.from(originCountry!.map((x) => x)),
+    "first_air_date": firstAirDate,
+
   };
 }
 

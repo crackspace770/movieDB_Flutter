@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../api/endpoint.dart';
 import '../model/tv.dart';
+import '../ui/detail_tv_page.dart';
 
 class TvCard extends StatelessWidget {
   final Tv tv;
@@ -20,7 +21,8 @@ class TvCard extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                // Handle tap
+                Navigator.pushNamed(context, DetailTvPage.routeName,
+                    arguments: tv.id.toString());
               },
               child: tv.posterPath != null
                   ? Hero(

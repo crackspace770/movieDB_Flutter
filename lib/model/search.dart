@@ -3,43 +3,41 @@ import 'dart:convert';
 
 class Search {
   bool adult;
-  String? backdropPath;
   int id;
-  String? name;
+  String name;
   OriginalLanguage originalLanguage;
   String overview;
   String? posterPath;
   MediaType mediaType;
   List<int> genreIds;
   double popularity;
-  DateTime? firstAirDate;
+  DateTime firstAirDate;
   double voteAverage;
   int voteCount;
   List<String>? originCountry;
-  String? title; // Make it nullable
-  String? originalTitle;
-  String? releaseDate;
+  String title; // Make it nullable
+  String originalTitle;
+  String releaseDate;
   bool? video;
 
   Search({
     required this.adult,
-    required this.backdropPath,
     required this.id,
-    this.name,
+    required this.name,
     required this.originalLanguage,
     required this.overview,
     required this.posterPath,
     required this.mediaType,
     required this.genreIds,
     required this.popularity,
-    this.firstAirDate,
+    required this.firstAirDate,
     required this.voteAverage,
     required this.voteCount,
-    this.originCountry,
-    this.title,
-    this.originalTitle,
-    this.releaseDate,
-    this.video,
+    required this.originCountry,
+    required this.title,
+    required this.originalTitle,
+    required this.releaseDate,
+    required this.video,
   });
 
   factory Search.fromRawJson(String str) => Search.fromJson(json.decode(str));
@@ -48,7 +46,6 @@ class Search {
 
   factory Search.fromJson(Map<String, dynamic> json) => Search(
     adult: json["adult"],
-    backdropPath: json["backdrop_path"],
     id: json["id"],
     name: json["name"],
     originalLanguage: originalLanguageValues.map[json["original_language"]]!,
@@ -57,7 +54,6 @@ class Search {
     mediaType: mediaTypeValues.map[json["media_type"]]!,
     genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
     popularity: json["popularity"]?.toDouble(),
-    firstAirDate: json["first_air_date"] == null ? null : DateTime.parse(json["first_air_date"]),
     voteAverage: json["vote_average"]?.toDouble(),
     voteCount: json["vote_count"],
     originCountry: json["origin_country"] == null ? null : List<String>.from(json["origin_country"].map((x) => x)),
@@ -65,11 +61,11 @@ class Search {
     originalTitle: json["original_title"],
     releaseDate: json["release_date"],
     video: json["video"],
+    firstAirDate: DateTime.parse(json["first_air_date"]),
   );
 
   Map<String, dynamic> toJson() => {
     "adult": adult,
-    "backdrop_path": backdropPath,
     "id": id,
     "name": name,
     "original_language": originalLanguageValues.reverse[originalLanguage],

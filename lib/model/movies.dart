@@ -16,7 +16,6 @@ class Movie {
     required this.title,
     required this.voteAverage,
     required this.voteCount,
-
   });
 
 

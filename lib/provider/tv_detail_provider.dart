@@ -13,7 +13,7 @@ class TvDetailProvider extends ChangeNotifier {
 
   TvDetailProvider(
       {required this.apiService, required this.tvId}) {
-    fetchDetailRestaurant(tvId!);
+    fetchDetailTv(tvId!);
   }
 
   late TvDetailResponse _detailTv;
@@ -24,7 +24,7 @@ class TvDetailProvider extends ChangeNotifier {
   TvDetailResponse get result => _detailTv;
   ResultState get state => _state;
 
-  Future<dynamic> fetchDetailRestaurant(String tvId) async {
+  Future<dynamic> fetchDetailTv(String tvId) async {
     try {
       _state = ResultState.loading;
       notifyListeners();

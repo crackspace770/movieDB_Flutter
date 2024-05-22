@@ -1,15 +1,10 @@
 import 'dart:convert';
-
-import 'package:movie_db_flutter/model/movies.dart';
 import 'package:movie_db_flutter/response/trending_response.dart';
-
 import '../response/movie_detail_response.dart';
 import '../response/movie_response.dart';
 import '../response/search_response.dart';
 import '../response/tv_detail_response.dart';
 import '../response/tv_response.dart';
-import 'endpoint.dart';
-import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 

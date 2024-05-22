@@ -25,9 +25,9 @@ class TrendingCard extends StatelessWidget {
               },
               child: trending.posterPath != null
                   ? Hero(
-                tag: trending.posterPath!,
+                tag: trending.posterPath,
                 child: Image.network(
-                  "${Endpoints.imageUrl}${trending.posterPath!}",
+                  "${Endpoints.imageUrl}${trending.posterPath}",
                   fit: BoxFit.cover,
                   errorBuilder: (ctx, error, _) => const Center(
                     child: Icon(
@@ -53,7 +53,7 @@ class TrendingCard extends StatelessWidget {
           SizedBox(
             width: 100, // Adjust this width as per your design
             child: Text(
-              trending.name ?? '', // Use empty string as default if name is null
+              trending.name  , // Use empty string as default if name is null
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.bold),
@@ -68,10 +68,7 @@ class TrendingCard extends StatelessWidget {
                 size: 16.0,
               ),
               SizedBox(width: 2.0),
-              Text(
-                trending.releaseDate != null
-                    ? DateFormat('yyyy-MM-dd').format(trending.releaseDate!)
-                    : '', // Use empty string as default if releaseDate is null
+              Text(DateFormat('yyyy-MM-dd').format(trending.releaseDate),
                 style: TextStyle(fontSize: 12.0),
               ),
             ],
@@ -84,10 +81,7 @@ class TrendingCard extends StatelessWidget {
                 size: 16.0,
               ),
               SizedBox(width: 2.0),
-              Text(
-                trending.voteAverage != null
-                    ? trending.voteAverage.toString()
-                    : '', // Use empty string as default if voteAverage is null
+              Text(trending.voteAverage.toString(), // Use empty string as default if voteAverage is null
                 style: TextStyle(fontSize: 12.0),
               ),
             ],

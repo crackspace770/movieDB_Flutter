@@ -7,6 +7,8 @@ import 'package:movie_db_flutter/provider/preference_provider.dart';
 import 'package:movie_db_flutter/provider/search_provider.dart';
 import 'package:movie_db_flutter/provider/trending_provider.dart';
 import 'package:movie_db_flutter/provider/tv_provider.dart';
+import 'package:movie_db_flutter/ui/detail_movie_page.dart';
+import 'package:movie_db_flutter/ui/detail_tv_page.dart';
 import 'package:movie_db_flutter/ui/home_page.dart';
 import 'package:movie_db_flutter/ui/list_page.dart';
 import 'package:movie_db_flutter/ui/search_page.dart';
@@ -69,10 +71,13 @@ class MyApp extends StatelessWidget {
             routes: {
               HomePage.routeName: (context) => const HomePage(),
               SearchPage.routeName:  (context) => SearchPage(),
-             // RestaurantDetailPage.routeName: (context) => RestaurantDetailPage(
-             //   restaurantId:
-             //   ModalRoute.of(context)?.settings.arguments as String,
-             // ),
+              DetailMoviePage.routeName: (context) => DetailMoviePage(
+                movieId:
+                ModalRoute.of(context)?.settings.arguments as String,
+              ),
+              DetailTvPage.routeName: (context) =>DetailTvPage(
+                  tvId: ModalRoute.of(context)?.settings.arguments as String
+              ),
             //  FavoritePage.routeName: (context) => const FavoritePage(),
             },
           );
