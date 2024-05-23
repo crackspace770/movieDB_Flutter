@@ -1,21 +1,18 @@
-import 'dart:convert';
-
 
 class Trending {
-  bool adult;
-  String backdropPath;
-  int id;
-  String title;
-  String originalTitle;
-  String overview;
-  String posterPath;
-  MediaType mediaType;
-  DateTime releaseDate;
-  double voteAverage;
-  String name;
-  String originalName;
-  DateTime firstAirDate;
-
+  final bool adult;
+  final String backdropPath;
+  final int id;
+  final String title;
+  final String originalTitle;
+  final String overview;
+  final String posterPath;
+  final MediaType mediaType;
+  final DateTime releaseDate;
+  final double voteAverage;
+  final String name;
+  final String originalName;
+  final DateTime firstAirDate;
 
   Trending({
     required this.adult,
@@ -31,57 +28,58 @@ class Trending {
     required this.name,
     required this.originalName,
     required this.firstAirDate,
-
   });
 
-  factory Trending.fromJson(Map<String, dynamic> json) => Trending(
-    adult: json["adult"]??"",
-    backdropPath: json["backdrop_path"]??"",
-    id: json["id"]??"",
-    title: json["title"]??"",
-    originalTitle: json["original_title"]??"",
-    overview: json["overview"]??"",
-    posterPath: json["poster_path"]??"",
-    mediaType: mediaTypeValues.map[json["media_type"]]!,
-    releaseDate: json["release_date"] != null ? DateTime.parse(json["release_date"]) : DateTime.now(),
-    voteAverage: (json["vote_average"] as num?)?.toDouble() ?? 0.0, // Handle null value
-    name: json["name"]??"",
-    originalName: json["original_name"]??"",
-    firstAirDate: json["first_air_date"] == null ? DateTime.parse(json["first_air_date"]):DateTime.now(),
-  );
+  factory Trending.fromJson(Map<String, dynamic> json) {
+    return Trending(
+      adult: json['adult'] ?? false,
+      backdropPath: json['backdrop_path'] ?? '',
+      id: json['id'] ?? 0,
+      title: json['title'] ?? '',
+      originalTitle: json['original_title'] ?? '',
+      overview: json['overview'] ?? '',
+      posterPath: json['poster_path'] ?? '',
+      mediaType: mediaTypeValues.map[json['media_type']] ?? MediaType.MOVIE,
+      releaseDate: json['release_date'] != null
+          ? DateTime.parse(json['release_date'])
+          : DateTime.now(),
+      voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+      name: json['name'] ?? '',
+      originalName: json['original_name'] ?? '',
+      firstAirDate: json['first_air_date'] != null
+          ? DateTime.parse(json['first_air_date'])
+          : DateTime.now(),
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-    "adult": adult,
-    "backdrop_path": backdropPath,
-    "id": id,
-    "title": title,
-    "original_title": originalTitle,
-    "overview": overview,
-    "poster_path": posterPath,
-    "media_type": mediaTypeValues.reverse[mediaType],
-    "release_date": releaseDate,
-    "vote_average": voteAverage,
-    "name": name,
-    "original_name": originalName,
-    "first_air_date": firstAirDate,
-
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      'adult': adult,
+      'backdrop_path': backdropPath,
+      'id': id,
+      'title': title,
+      'original_title': originalTitle,
+      'overview': overview,
+      'poster_path': posterPath,
+      'media_type': mediaTypeValues.reverse[mediaType],
+      'release_date': releaseDate.toIso8601String(),
+      'vote_average': voteAverage,
+      'name': name,
+      'original_name': originalName,
+      'first_air_date': firstAirDate.toIso8601String(),
+    };
+  }
 }
 
-enum MediaType {
-  MOVIE,
-  TV
-}
+enum MediaType { MOVIE, TV }
 
 final mediaTypeValues = EnumValues({
-  "movie": MediaType.MOVIE,
-  "tv": MediaType.TV
+  'movie': MediaType.MOVIE,
+  'tv': MediaType.TV,
 });
 
-
-
 class EnumValues<T> {
-  Map<String, T> map;
+  final Map<String, T> map;
   late Map<T, String> reverseMap;
 
   EnumValues(this.map);

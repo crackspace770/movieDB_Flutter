@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:movie_db_flutter/model/trending.dart';
 
 import '../api/endpoint.dart';
+import '../ui/detail_trending_page.dart';
 
 class TrendingCard extends StatelessWidget {
   final Trending trending;
@@ -21,11 +22,12 @@ class TrendingCard extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                // Handle tap
+                Navigator.pushNamed(context, DetailTrendingPage.routeName,
+                    arguments: trending.id.toString());
               },
               child: trending.posterPath != null
                   ? Hero(
-                tag: trending.posterPath,
+                tag: trending.posterPath!,
                 child: Image.network(
                   "${Endpoints.imageUrl}${trending.posterPath}",
                   fit: BoxFit.cover,
@@ -38,28 +40,27 @@ class TrendingCard extends StatelessWidget {
                 ),
               )
                   : Container(
-                // Placeholder container
-                width: 100, // Set the width and height of the placeholder
+                width: 100,
                 height: 100,
-                color: Colors.grey, // Set the color of the placeholder
-                child: Icon(
+                color: Colors.grey,
+                child: const Icon(
                   Icons.image_not_supported,
                   color: Colors.white,
                 ),
               ),
             ),
           ),
-          SizedBox(height: 4.0),
+          const SizedBox(height: 4.0),
           SizedBox(
-            width: 100, // Adjust this width as per your design
+            width: 100,
             child: Text(
-              trending.name  , // Use empty string as default if name is null
+              trending.title!,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 2.0),
+          const SizedBox(height: 2.0),
           Row(
             children: [
               const Icon(
@@ -67,9 +68,10 @@ class TrendingCard extends StatelessWidget {
                 color: Colors.blueAccent,
                 size: 16.0,
               ),
-              SizedBox(width: 2.0),
-              Text(DateFormat('yyyy-MM-dd').format(trending.releaseDate),
-                style: TextStyle(fontSize: 12.0),
+              const SizedBox(width: 2.0),
+              Text(
+                DateFormat('yyyy-MM-dd').format(trending.releaseDate!),
+                style: const TextStyle(fontSize: 12.0),
               ),
             ],
           ),
@@ -80,9 +82,10 @@ class TrendingCard extends StatelessWidget {
                 color: Colors.blueAccent,
                 size: 16.0,
               ),
-              SizedBox(width: 2.0),
-              Text(trending.voteAverage.toString(), // Use empty string as default if voteAverage is null
-                style: TextStyle(fontSize: 12.0),
+              const SizedBox(width: 2.0),
+              Text(
+                trending.voteAverage.toString(),
+                style: const TextStyle(fontSize: 12.0),
               ),
             ],
           ),

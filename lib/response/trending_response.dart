@@ -3,10 +3,10 @@ import 'dart:convert';
 import '../model/trending.dart';
 
 class TrendingResponse {
-  int page;
-  List<Trending> trendings;
-  int totalPages;
-  int totalResults;
+  final int page;
+  final List<Trending> trendings;
+  final int totalPages;
+  final int totalResults;
 
   TrendingResponse({
     required this.page,
@@ -15,23 +15,24 @@ class TrendingResponse {
     required this.totalResults,
   });
 
-  factory TrendingResponse.fromRawJson(String str) => TrendingResponse.fromJson(json.decode(str));
+  factory TrendingResponse.fromJson(Map<String, dynamic> json) {
+    return TrendingResponse(
+      page: json['page'] ?? 0,
+      trendings: (json['results'] as List)
+          .map((i) => Trending.fromJson(i))
+          .toList(),
+      totalPages: json['total_pages'] ?? 0,
+      totalResults: json['total_results'] ?? 0,
+    );
+  }
 
-  String toRawJson() => json.encode(toJson());
-
-  factory TrendingResponse.fromJson(Map<String, dynamic> json) => TrendingResponse(
-    page: json["page"],
-    trendings: List<Trending>.from(json["results"].map((x) => TrendingResponse.fromJson(x))),
-    totalPages: json["total_pages"],
-    totalResults: json["total_results"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "page": page,
-    "results": List<dynamic>.from(trendings.map((x) => x.toJson())),
-    "total_pages": totalPages,
-    "total_results": totalResults,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      'page': page,
+      'results': trendings.map((trending) => trending.toJson()).toList(),
+      'total_pages': totalPages,
+      'total_results': totalResults,
+    };
+  }
 }
-
 

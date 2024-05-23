@@ -38,7 +38,7 @@ class ApiService {
   }
 
   Future<TrendingResponse> getTrendingList() async {
-    final response = await client.get(Uri.parse("https://api.themoviedb.org/3/tv/popular?api_key=e4f0bf9deb75ea82eec186d6a65814ae"));
+    final response = await client.get(Uri.parse("https://api.themoviedb.org/3/trending/all/week?api_key=e4f0bf9deb75ea82eec186d6a65814ae"));
     if (response.statusCode == 200) {
       return TrendingResponse.fromJson(json.decode(response.body));
     } else {

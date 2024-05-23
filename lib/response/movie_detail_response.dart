@@ -5,27 +5,29 @@ import 'package:movie_db_flutter/model/movie_detail.dart';
 class MovieDetailResponse {
   bool error;
   String message;
-  MovieDetail movies;
+  MovieDetail movie;
 
-  MovieDetailResponse ({
+  MovieDetailResponse({
     required this.error,
     required this.message,
-    required this.movies,
+    required this.movie,
   });
 
-  factory MovieDetailResponse .fromRawJson(String str) => MovieDetailResponse.fromJson(json.decode(str));
+  factory MovieDetailResponse.fromRawJson(String str) => MovieDetailResponse.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory MovieDetailResponse .fromJson(Map<String, dynamic> json) => MovieDetailResponse (
-    error: json["error"] ?? false,
-    message: json["message"] ?? "",
-    movies: MovieDetail.fromJson(json["movies"] ?? {}),
-  );
+  factory MovieDetailResponse.fromJson(Map<String, dynamic> json) {
+    return MovieDetailResponse(
+      error: json["error"] ?? false, // Handle possible null value
+      message: json["message"] ?? "",
+      movie: MovieDetail.fromJson(json),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "error": error,
     "message": message,
-    "movies": movies.toJson(),
+    "movie": movie.toJson(),
   };
 }

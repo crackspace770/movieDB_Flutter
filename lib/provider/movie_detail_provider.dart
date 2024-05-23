@@ -9,8 +9,10 @@ class MovieDetailProvider extends ChangeNotifier {
   final ApiService apiService;
   final String? movieId;
 
-  MovieDetailProvider(
-      {required this.apiService, required this.movieId}) {
+  MovieDetailProvider({
+    required this.apiService,
+    required this.movieId,
+  }) {
     fetchDetailMovie(movieId!);
   }
 
@@ -30,7 +32,7 @@ class MovieDetailProvider extends ChangeNotifier {
       _state = ResultState.hasData;
       notifyListeners();
       return _detailMovie = movies;
-        } on SocketException {
+    } on SocketException {
       _state = ResultState.error;
       notifyListeners();
       return _message = 'Connection Error';

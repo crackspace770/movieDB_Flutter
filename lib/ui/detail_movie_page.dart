@@ -11,7 +11,6 @@ import '../api/endpoint.dart';
 import '../provider/movie_provider.dart';
 
 class DetailMoviePage extends StatelessWidget {
-
   static const routeName = '/detail_movie';
   final String movieId;
 
@@ -19,9 +18,8 @@ class DetailMoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MovieDetailProvider> (
-      create: (_) =>
-         MovieDetailProvider(apiService: ApiService(Client()), movieId: movieId),
+    return ChangeNotifierProvider<MovieDetailProvider>(
+      create: (_) => MovieDetailProvider(apiService: ApiService(Client()), movieId: movieId),
       child: Scaffold(
         body: Consumer<MovieDetailProvider>(
           builder: (context, state, _) {
@@ -30,19 +28,18 @@ class DetailMoviePage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (state.state == ResultState.hasData) {
-              var movie = state.result.movies;
-
+              var movie = state.result.movie;
 
               return Scaffold(
                 body: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget> [
+                    children: <Widget>[
                       Stack(
                         children: [
                           if (movie.posterPath != null)
                             Image.network(
-                                "https://image.tmdb.org/t/p/w500${movie.posterPath}",
+                              "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                             ),
                           const SafeArea(
                             child: Padding(
@@ -81,7 +78,6 @@ class DetailMoviePage extends StatelessWidget {
                               ),
                             ],
                           ),
-
                           Column(
                             children: [
                               const Icon(
@@ -101,20 +97,18 @@ class DetailMoviePage extends StatelessWidget {
                                 color: Colors.blue,
                               ),
                               Text(
-                                movie.voteCount.toString() , // Convert voteCount to string
-                                style: const TextStyle(fontSize: 12.0),     ),
+                                movie.voteCount.toString(),
+                                style: const TextStyle(fontSize: 12.0),
+                              ),
                             ],
                           ),
                         ],
                       ),
-
-                      const Divider(
-
-                      ),
+                      const Divider(),
                       Container(
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
-                          movie.overview ,
+                          movie.overview,
                           overflow: TextOverflow.clip,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
@@ -122,11 +116,8 @@ class DetailMoviePage extends StatelessWidget {
                           ),
                         ),
                       ),
-
                     ],
                   ),
-
-
                 ),
               );
             } else if (state.state == ResultState.noData) {
@@ -147,5 +138,4 @@ class DetailMoviePage extends StatelessWidget {
       ),
     );
   }
-
 }

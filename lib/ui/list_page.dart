@@ -15,16 +15,16 @@ class ListPage extends StatelessWidget {
         title: const Text('MovieDB'),
         centerTitle: true,
       ),
-      body: const Column(
+      body:  Column(
         children: [
-          SizedBox(height: 16),
-          Text(
+          const SizedBox(height: 16),
+          const Text(
             'Trending Now',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-      //    Expanded(
-      //        child: TrendingHorizontalList()
-      //    ),
+          Expanded(
+              child: TrendingHorizontalList()
+          ),
           SizedBox(height: 16), // Add spacing between lists if needed
           Text(
             'Movies',
