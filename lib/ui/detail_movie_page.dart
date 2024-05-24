@@ -1,13 +1,9 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_db_flutter/provider/movie_detail_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../api/api_service.dart';
-import '../api/endpoint.dart';
 import '../provider/movie_provider.dart';
 
 class DetailMoviePage extends StatelessWidget {
@@ -41,14 +37,22 @@ class DetailMoviePage extends StatelessWidget {
                             Image.network(
                               "https://image.tmdb.org/t/p/w500/${movie.posterPath}",
                             ),
-                          const SafeArea(
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          SafeArea(
+                            child: Opacity(
+                              opacity: 0.5,
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 25),
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: ()=>Navigator.pop(context), // Changed this line
+                                ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Container(
@@ -116,6 +120,9 @@ class DetailMoviePage extends StatelessWidget {
                           ),
                         ),
                       ),
+
+                      const SizedBox(height: 15)
+
                     ],
                   ),
                 ),

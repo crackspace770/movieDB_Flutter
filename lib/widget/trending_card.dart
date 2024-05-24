@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:movie_db_flutter/model/trending.dart';
 
 import '../api/endpoint.dart';
-import '../ui/detail_trending_page.dart';
+
 
 class TrendingCard extends StatelessWidget {
   final Trending trending;
@@ -22,8 +22,8 @@ class TrendingCard extends StatelessWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, DetailTrendingPage.routeName,
-                    arguments: trending.id.toString());
+              //  Navigator.pushNamed(context, DetailTrendingPage.routeName,
+             //       arguments: trending.id.toString());
               },
               child: trending.posterPath != null
                   ? Hero(

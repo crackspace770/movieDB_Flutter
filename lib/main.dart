@@ -8,10 +8,8 @@ import 'package:movie_db_flutter/provider/search_provider.dart';
 import 'package:movie_db_flutter/provider/trending_provider.dart';
 import 'package:movie_db_flutter/provider/tv_provider.dart';
 import 'package:movie_db_flutter/ui/detail_movie_page.dart';
-import 'package:movie_db_flutter/ui/detail_trending_page.dart';
 import 'package:movie_db_flutter/ui/detail_tv_page.dart';
 import 'package:movie_db_flutter/ui/home_page.dart';
-import 'package:movie_db_flutter/ui/list_page.dart';
 import 'package:movie_db_flutter/ui/search_page.dart';
 import 'package:movie_db_flutter/utils/preference_helper.dart';
 import 'package:provider/provider.dart';
@@ -79,9 +77,7 @@ class MyApp extends StatelessWidget {
               DetailTvPage.routeName: (context) =>DetailTvPage(
                   tvId: ModalRoute.of(context)?.settings.arguments as String
               ),
-              DetailTrendingPage.routeName: (context) =>DetailTrendingPage(
-                  trendingId: ModalRoute.of(context)?.settings.arguments as String
-              ),
+
             //  FavoritePage.routeName: (context) => const FavoritePage(),
             },
           );

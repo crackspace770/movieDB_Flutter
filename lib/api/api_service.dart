@@ -46,7 +46,7 @@ class ApiService {
     }
   }
 
-  Future<SearchResponse> searchRestaurant(String query) async {
+  Future<SearchResponse> searchFilm(String query) async {
     final response = await client.get(Uri.parse("https://api.themoviedb.org/3/search/multi?query=${query}&include_adult=true&api_key=e4f0bf9deb75ea82eec186d6a65814ae"));
     if (response.statusCode == 200) {
       return SearchResponse.fromJson(json.decode(response.body));

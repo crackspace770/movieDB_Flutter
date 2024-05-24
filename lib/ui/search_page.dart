@@ -38,7 +38,7 @@ class SearchPage extends StatelessWidget {
                     focusNode: _focusNode,
                     decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search),
-                      fillColor: Color(0xFFF6F7FB),
+                      fillColor: Color(0xFF0E0E0E),
                       hintText: "What movie you're looking for?",
                       filled: true,
                       contentPadding: EdgeInsets.symmetric(horizontal: 16),
@@ -64,16 +64,16 @@ class SearchPage extends StatelessWidget {
               child: Consumer<SearchProvider>(
                 builder: (context, state, _) {
                   if (state.state == ResultState.loading) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (state.state == ResultState.hasData) {
-                    if (state.result.film.isEmpty) {
+                    if (state.result.results.isEmpty) {
                       return const Text("Data Not Found");
                     } else {
                       return ListView.builder(
                           shrinkWrap: true,
-                          itemCount: state.result.film.length,
+                          itemCount: state.result.results.length,
                           itemBuilder: (context, index) {
-                            var search = state.result.film[index];
+                            var search = state.result.results[index];
                             return MultiCard(searchResult: search);
                           }
                       );

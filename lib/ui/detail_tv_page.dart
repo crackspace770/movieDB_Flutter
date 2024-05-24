@@ -42,14 +42,22 @@ class DetailTvPage extends StatelessWidget {
                   Image.network(
                     "${Endpoints.imageUrl}${tv.posterPath ?? ''}",
                       ),
-                          const SafeArea(
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          SafeArea(
+                            child: Opacity(
+                              opacity: 0.5,
+                              child: Container(
+                                margin: const EdgeInsets.only(left: 25),
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    shape: BoxShape.circle
+                                ),
+                                child: IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: ()=>Navigator.pop(context), // Changed this line
+                                ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                       Container(
@@ -120,6 +128,8 @@ class DetailTvPage extends StatelessWidget {
                           ),
                         ),
                       ),
+
+                      const SizedBox(height: 15)
 
                     ],
                   ),

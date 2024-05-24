@@ -31,9 +31,9 @@ class SearchProvider extends ChangeNotifier {
     try {
       _state = ResultState.loading;
       notifyListeners();
-      final response = await apiService.searchRestaurant(query);
+      final response = await apiService.searchFilm(query);
 
-      if (response.film.isEmpty) {
+      if (response.results.isEmpty) {
         _state = ResultState.noData;
         _message = 'No results found';
       } else {

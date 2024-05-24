@@ -2,109 +2,86 @@
 import 'dart:convert';
 
 class Search {
-  bool adult;
-  int id;
-  String name;
-  OriginalLanguage originalLanguage;
-  String overview;
-  String? posterPath;
-  MediaType mediaType;
-  List<int> genreIds;
-  double popularity;
-  DateTime firstAirDate;
-  double voteAverage;
-  int voteCount;
-  List<String>? originCountry;
-  String title; // Make it nullable
-  String originalTitle;
-  String releaseDate;
-  bool? video;
+  final bool adult;
+  final String backdropPath;
+  final int id;
+  final String title;
+  final String originalTitle;
+  final String overview;
+  final String posterPath;
+  final MediaType mediaType;
+  final DateTime releaseDate;
+  final double voteAverage;
+  final String name;
+  final String originalName;
+  final DateTime firstAirDate;
 
   Search({
     required this.adult,
+    required this.backdropPath,
     required this.id,
-    required this.name,
-    required this.originalLanguage,
+    required this.title,
+    required this.originalTitle,
     required this.overview,
     required this.posterPath,
     required this.mediaType,
-    required this.genreIds,
-    required this.popularity,
-    required this.firstAirDate,
-    required this.voteAverage,
-    required this.voteCount,
-    required this.originCountry,
-    required this.title,
-    required this.originalTitle,
     required this.releaseDate,
-    required this.video,
+    required this.voteAverage,
+    required this.name,
+    required this.originalName,
+    required this.firstAirDate,
   });
 
-  factory Search.fromRawJson(String str) => Search.fromJson(json.decode(str));
+  factory Search.fromJson(Map<String, dynamic> json) {
+    return Search(
+      adult: json['adult'] ?? false,
+      backdropPath: json['backdrop_path'] ?? '',
+      id: json['id'] ?? 0,
+      title: json['title'] ?? '',
+      originalTitle: json['original_title'] ?? '',
+      overview: json['overview'] ?? '',
+      posterPath: json['poster_path'] ?? '',
+      mediaType: mediaTypeValues.map[json['media_type']] ?? MediaType.MOVIE,
+      releaseDate: json['release_date'] != null
+          ? DateTime.parse(json['release_date'])
+          : DateTime.now(),
+      voteAverage: (json['vote_average'] as num?)?.toDouble() ?? 0.0,
+      name: json['name'] ?? '',
+      originalName: json['original_name'] ?? '',
+      firstAirDate: json['first_air_date'] != null
+          ? DateTime.parse(json['first_air_date'])
+          : DateTime.now(),
+    );
+  }
 
-  String toRawJson() => json.encode(toJson());
-
-  factory Search.fromJson(Map<String, dynamic> json) => Search(
-    adult: json["adult"],
-    id: json["id"],
-    name: json["name"],
-    originalLanguage: originalLanguageValues.map[json["original_language"]]!,
-    overview: json["overview"],
-    posterPath: json["poster_path"],
-    mediaType: mediaTypeValues.map[json["media_type"]]!,
-    genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-    popularity: json["popularity"]?.toDouble(),
-    voteAverage: json["vote_average"]?.toDouble(),
-    voteCount: json["vote_count"],
-    originCountry: json["origin_country"] == null ? null : List<String>.from(json["origin_country"].map((x) => x)),
-    title: json["title"],
-    originalTitle: json["original_title"],
-    releaseDate: json["release_date"],
-    video: json["video"],
-    firstAirDate: DateTime.parse(json["first_air_date"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "adult": adult,
-    "id": id,
-    "name": name,
-    "original_language": originalLanguageValues.reverse[originalLanguage],
-    "overview": overview,
-    "poster_path": posterPath,
-    "media_type": mediaTypeValues.reverse[mediaType],
-    "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
-    "popularity": popularity,
-    "first_air_date": "${firstAirDate!.year.toString().padLeft(4, '0')}-${firstAirDate!.month.toString().padLeft(2, '0')}-${firstAirDate!.day.toString().padLeft(2, '0')}",
-    "vote_average": voteAverage,
-    "vote_count": voteCount,
-    "origin_country": originCountry == null ? [] : List<dynamic>.from(originCountry!.map((x) => x)),
-    "title": title,
-    "original_title": originalTitle,
-    "release_date": releaseDate,
-    "video": video,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      'adult': adult,
+      'backdrop_path': backdropPath,
+      'id': id,
+      'title': title,
+      'original_title': originalTitle,
+      'overview': overview,
+      'poster_path': posterPath,
+      'media_type': mediaTypeValues.reverse[mediaType],
+      'release_date': releaseDate.toIso8601String(),
+      'vote_average': voteAverage,
+      'name': name,
+      'original_name': originalName,
+      'first_air_date': firstAirDate.toIso8601String(),
+    };
+  }
 }
 
-enum MediaType {
-  MOVIE,
-  TV
-}
+enum MediaType { MOVIE, TV }
 
 final mediaTypeValues = EnumValues({
-  "movie": MediaType.MOVIE,
-  "tv": MediaType.TV
-});
-
-enum OriginalLanguage {
-  EN
-}
-
-final originalLanguageValues = EnumValues({
-  "en": OriginalLanguage.EN
+  'movie': MediaType.MOVIE,
+  'tv': MediaType.TV,
 });
 
 class EnumValues<T> {
-  Map<String, T> map;
+  final Map<String, T> map;
   late Map<T, String> reverseMap;
 
   EnumValues(this.map);
